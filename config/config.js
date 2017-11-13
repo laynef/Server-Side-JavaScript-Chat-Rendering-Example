@@ -5,11 +5,7 @@ module.exports = {
 	apiPort: 8325,
 	frontendPort: 4000,
 	development: {
-		"username": "laynefaler",
-		"password": null,
-		"database": "ssjs-chat",
-		"host": "127.0.0.1",
-		"port": 5432,
+		"url": "postgres://bioxyxgm:gTllpOBZY0ICrs95mvcFk7zvBiKtm7bq@baasu.db.elephantsql.com:5432/bioxyxgm",
 		"dialect": "postgres",
 	},
 	test: {

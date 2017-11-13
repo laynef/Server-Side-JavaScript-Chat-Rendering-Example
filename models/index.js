@@ -7,7 +7,7 @@ const config    = require('../config/config')[env];
 const db = {};
 
 let sequelize;
-if (env === 'production') {
+if (config.url) {
 	sequelize = new Sequelize(config.url);
 } else {
 	sequelize = new Sequelize(config.database, config.username, config.password, config);
