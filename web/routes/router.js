@@ -26,21 +26,30 @@ export default () => {
 		}
 		cb();
 	};
+	const disableQueries = (nextState, replace, cb) => {
+		const { routing: { locationBeforeTransitions: { search, pathname }}} = store.getState();
+		if (search !== '') {
+			replace(pathname);
+		}
+		cb();
+	};
 	return (
-		<Route path="/" component={MasterPage}>
+		<Route onEnter={disableQueries}>
+			<Route path="/" component={MasterPage}>
 
-			<Route onEnter={redirect}>
-				<IndexRoute component={PublicPage} />
-				<Route path="signup" component={SignUpPage} />
+				<Route onEnter={redirect}>
+					<IndexRoute component={PublicPage} />
+					<Route path="signup" component={SignUpPage} />
+				</Route>
+
+				<Route onEnter={requireLogin}>
+					<Route path="dashboard" component={DashboardPage} />
+					<Route path="messaging" component={MessagingPage} />
+				</Route>
+
+				<Route path="removed" component={RemovedPage} />
+				<Route path="*" component={NotFoundPage} />
 			</Route>
-
-			<Route onEnter={requireLogin}>
-				<Route path="dashboard" component={DashboardPage} />
-				<Route path="messaging" component={MessagingPage} />
-			</Route>
-
-			<Route path="removed" component={RemovedPage} />
-			<Route path="*" component={NotFoundPage} />
 		</Route>
 	);
 };
